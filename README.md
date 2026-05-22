@@ -1,50 +1,66 @@
-# Welcome to your Expo app 👋
+This project demonstrates the concept about creating an in-app IDE for React Native using Expo and React Native Web. It allows you to view all screens of your app at once in a blueprint-style view and edit design tokens in real-time.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Features
 
-## Get started
+- **Blueprint View**: See all screens of your app at once
+- **Live Design Token Editing**: Update colors and see changes in real time
+- **Redux State Monitoring**: Watch state changes as you interact with the app
+- **Expo Router**: Modern navigation with file-based routing
+- **Cross-platform**: Works on iOS, Android, and Web
 
-1. Install dependencies
+## Installation
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Running the App
 
 ```bash
-npm run reset-project
+# Start the development server
+npm start
+
+# Run on web (for IDE features)
+npx expo start --web
+
+# Run on iOS
+npm run ios
+
+# Run on Android
+npm run android
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Using the IDE
 
-## Learn more
+1. Start the app in web mode
+2. Navigate to `/ide` in your browser (e.g., http://localhost:8081/ide)
+3. You'll see all screens of your app laid out in a blueprint view
+4. Use the left panel to toggle between token editing and Redux state monitoring
+5. Click on any color value to edit it and see changes in real time
+6. Changes to tokens will be written to the tokens.json file
 
-To learn more about developing your project with Expo, look at the following resources:
+## Project Structure
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+app/
+├── (app)/                # Main app routes
+│   ├── _layout.tsx       # Layout for main app
+│   ├── index.tsx         # Home screen
+│   ├── login.tsx         # Login screen
+│   ├── story-list.tsx    # Story list screen
+│   ├── passage/[id].tsx  # Passage detail screen
+│   └── study/[id].tsx    # Study flashcards screen
+├── (ide)/                # IDE routes
+│   ├── _layout.tsx       # Layout for IDE
+│   └── index.tsx         # IDE main screen
+├── _layout.tsx           # Root layout
+├── ide.tsx               # Redirect to IDE
+└── tokens.json           # Design tokens
+```
 
-## Join the community
+## How It Works
 
-Join our community of developers creating universal apps.
+The app uses Expo Router with two main route groups:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- `(app)`: Contains the actual app screens for normal use
+- `(ide)`: Contains the special IDE view for development
+
+The design token updates happen through a server that writes to the tokens.json file, which gets hot-reloaded by Fast Refresh.
+
+## Credits
